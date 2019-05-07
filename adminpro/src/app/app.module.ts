@@ -11,6 +11,7 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { BreadcrumsComponent } from './shared/breadcrums/breadcrums.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NopagesfoundComponent } from './shared/nopagesfound/nopagesfound.component';
+import { PagesComponent } from './pages/pages.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NopagesfoundComponent } from './shared/nopagesfound/nopagesfound.compon
     Graficas1Component,
     HeaderComponent,
     SidebarComponent,
-    BreadcrumsComponent
+    BreadcrumsComponent,
+    PagesComponent
   ],
   imports: [
     BrowserModule,
