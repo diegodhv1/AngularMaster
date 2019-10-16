@@ -1,3 +1,43 @@
-<p>
-  graficas1 works!
-</p>
+<div class="d-flex justify-content-around">
+
+<div class="card">
+  <h4 class="card-title">{{graficos.grafico1.leyenda}}</h4>
+  <app-grafico-dona 
+  [pieChartData]="graficos.grafico1.data" 
+  [pieChartLabels]="graficos.grafico1.labels" 
+  [pieChartType]="graficos.grafico1.type">
+</app-grafico-dona>
+</div>
+
+<div class="card">
+    <h4 class="card-title">{{graficos.grafico2.leyenda}}</h4>
+    <app-grafico-dona 
+    [pieChartData]="graficos.grafico2.data" 
+    [pieChartLabels]="graficos.grafico2.labels" 
+    [pieChartType]="graficos.grafico2.type">
+  </app-grafico-dona>
+  </div>
+
+</div>
+
+<div class="d-flex justify-content-around">
+
+  <div class="card">
+      <h4 class="card-title">{{graficos.grafico3.leyenda}}</h4>
+    <app-grafico-dona 
+    [pieChartData]="graficos.grafico3.data" 
+    [pieChartLabels]="graficos.grafico3.labels" 
+    [pieChartType]="graficos.grafico3.type">
+  </app-grafico-dona>
+  </div>
+
+  <div class="card">
+      <h4 class="card-title">{{graficos.grafico4.leyenda}}</h4>
+      <app-grafico-dona 
+      [pieChartData]="graficos.grafico4.data" 
+      [pieChartLabels]="graficos.grafico4.labels" 
+      [pieChartType]="graficos.grafico4.type">
+    </app-grafico-dona>
+    </div>
+
+</div>

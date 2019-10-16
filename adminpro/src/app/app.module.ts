@@ -6,21 +6,22 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register/register.component';
 
-//Modules
+// Modules
 import { PageModules } from './pages/pages.module';
-import { SharedModule } from './shared/shared.module';
-import { NopagesfoundComponent } from './shared/nopagesfound/nopagesfound.component';
+
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent     
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     APP_ROUTES,
-    PageModules    
+    PageModules,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
