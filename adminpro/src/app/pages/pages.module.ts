@@ -14,6 +14,7 @@ import { ChartsModule } from 'ng2-charts';
 
 // Modules
 import { GenericComponentsModules } from '../components/components.module';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { GenericComponentsModules } from '../components/components.module';
         DashboardComponent,
         ProgressComponent,
         Graficas1Component,
-        PagesComponent
+        PagesComponent,
+        AccountSettingsComponent
     ],
     exports: [
         DashboardComponent,
