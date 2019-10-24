@@ -12,7 +12,9 @@ export class SidebarService {
     subMenu: [
       { url: '/dashboard', title: 'Dashboard'},
       { url: '/progress', title: 'Progress'},
-      { url: '/grafics', title: 'Grafics'}
+      { url: '/grafics', title: 'Grafics'},
+      { url: '/promises', title: 'Promise'},
+      { url: '/rxjs', title: 'Rxjs'}
     ]
   }];
 

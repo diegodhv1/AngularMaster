@@ -15,6 +15,8 @@ import { ChartsModule } from 'ng2-charts';
 // Modules
 import { GenericComponentsModules } from '../components/components.module';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { PromisesComponent } from './promises/promises.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
         ProgressComponent,
         Graficas1Component,
         PagesComponent,
-        AccountSettingsComponent
+        AccountSettingsComponent,
+        PromisesComponent,
+        RxjsComponent
     ],
     exports: [
         DashboardComponent,
