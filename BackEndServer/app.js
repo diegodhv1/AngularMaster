@@ -14,9 +14,9 @@ app.listen(3000, () => {
 })
 
 // Create conexion
-monogoose.connection.openUri('mongodb://localhost/hospitalDB', (error, response) => {
+monogoose.connection.openUri( 'mongodb://localhost/hospitalDB', (error, response) => {
     if( error ) throw error;
-    console.log('MonogDB conected successfully: \x1b[32m%s\x1b[0m', 'OK');
+    console.log( 'MonogDB conected successfully: \x1b[32m%s\x1b[0m', 'OK');
 });
 
 // Routes
