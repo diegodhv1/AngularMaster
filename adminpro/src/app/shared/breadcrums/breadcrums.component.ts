@@ -33,7 +33,7 @@ export class BreadcrumsComponent implements OnInit {
       this.titlePage = event.title;
       this.title.setTitle(event.title);
 
-      // Agregar metaTag a la pagina. 
+      // Agregar metaTag a la pagina.
       const metaTag: MetaDefinition = {
         name: 'description',
         content: this.titlePage
