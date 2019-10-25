@@ -3,7 +3,7 @@ var express = require('express');
     //librery to conect mongoDB with Express
 var monogoose= require('mongoose');
 
-// Initializaton express and variables
+// Initialization express and variables
 var app = express();
 
 // open port
