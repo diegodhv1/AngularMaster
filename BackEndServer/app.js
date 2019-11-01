@@ -1,10 +1,26 @@
 // first load library
 var express = require('express');
-    //librery to conect mongoDB with Express
-var monogoose= require('mongoose');
+var monogoose= require('mongoose'); //librery to conect mongoDB with Express
+var bodyParser = require('body-parser') // middelware 
 
 // Initialization express and variables
 var app = express();
+
+// Body parser (create record in mongo)
+// create application/x-www-form-urlencoded parser
+// Whatever petition ( CRUD ) first it is parse with this funcitons
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Import routes
+appRoutes = require('./routes/app');
+appUser = require('./routes/users');
+appLogin = require('./routes/login');
+
+// Routes
+app.use( '/user' , appUser );
+app.use( '/login' , appLogin );
+app.use( '/' , appRoutes );
 
 // open port
 app.listen(3000, () => {
@@ -16,16 +32,10 @@ app.listen(3000, () => {
 // Create conexion
 monogoose.connection.openUri( 'mongodb://localhost/hospitalDB', (error, response) => {
     if( error ) throw error;
-    console.log( 'MonogDB conected successfully: \x1b[32m%s\x1b[0m', 'OK');
+    console.log( 'MonogDB: \x1b[32m%s\x1b[0m', 'OK');
 });
 
-// Routes
-app.get( '/', (request, response, next) => {
-    response.status(200).json({
-        ok: true,
-        mensaje: 'successfull'
-    });
-} )
+
 
 /* Diferent color of the console
 Reset = "\x1b[0m"

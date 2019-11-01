@@ -1,0 +1,1 @@
+module.exports.SEED= '@this_is_a_seed_example';
