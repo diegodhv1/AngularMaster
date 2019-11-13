@@ -8,7 +8,7 @@ var bcrypt = require('bcryptjs');
 var app = express();
 
 // Imports
-var User = require('../models/user')
+var Doctor = require('../models/doctor')
 
 // Encrypt password
 var jwt = require('jsonwebtoken');
@@ -17,20 +17,17 @@ var SEED = require('../config/config').SEED;
 
 var middlewareAuthentication = require('../middleware/authentication');
 
-
 /*
-* Get all users
+* Get all doctors
 */
-app.get('/', middlewareAuthentication.tokenVerification, (request, response, next) => {
+app.get('/', (request, response, next) => {
 
     var from = request.query.from || 0;
     from = Number(from);
 
-    User.find({}, 'name email img role')
-        .skip(from)
-        .limit(5)
+    Doctor.find({})
         .exec(
-            (err, users) => {
+            (err, doctors) => {
                 if (err) {
                     return response.status(500).json({
                         ok: false,
@@ -38,41 +35,42 @@ app.get('/', middlewareAuthentication.tokenVerification, (request, response, nex
                         errors: err
                     });
                 } else {
-                    User.count({}, (error, count) => {
+
+                    Doctor.count({}, (error, count) => {
                         return response.status(200).json({
                             ok: true,
-                            users: users,
+                            doctors: doctors,
                             count: count
                         });
-                    });
+                    })
                 }
             });
 });
 
 /*
-* Create users
+* Create doctor
 */
 app.post('/', middlewareAuthentication.tokenVerification, (req, res) => {
     var body = req.body;
-    var user = new User({
+
+    var doctor = new Doctor({
         name: body.name,
-        email: body.email,
-        password: bcrypt.hashSync(body.password, 10),
         img: body.img,
-        role: body.role
+        hospital: body.hospital,
+        user: body.user
     });
 
-    user.save((err, userSave) => {
+    doctor.save((err, doctorSaved) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
-                mensaje: 'Error to create user',
+                mensaje: 'Error to create doctor',
                 errors: err
             });
         }
         return res.status(201).json({
             ok: true,
-            body: userSave
+            body: doctorSaved
         });
 
     });
@@ -80,87 +78,87 @@ app.post('/', middlewareAuthentication.tokenVerification, (req, res) => {
 
 
 /*
-* Update users
+* Update doctor
 */
 
 app.put('/:id', middlewareAuthentication.tokenVerification, (req, res) => {
     var id = req.params.id;
     var body = req.body;
 
-    User.findById(id, (err, user) => {
+    Doctor.findById(id, (err, doctor) => {
 
         if (err) {
             return res.status(500).json({
                 ok: false,
-                mensaje: 'Error to find user',
+                mensaje: 'Error to find doctor',
                 errors: err
             });
         }
 
-        if (!user) {
+        if (!doctor) {
             return res.status(400).json({
                 ok: false,
-                mensaje: 'Does not exit an user with this ID',
-                errors: { message: 'Does not exit an user with this ID' }
+                mensaje: 'Does not exit a doctor with this ID',
+                errors: { message: 'Does not exit a doctor with this ID' }
             });
         }
 
-        user.name = body.name;
-        user.email = body.email;
-        user.role = body.role;
+        doctor.name = body.name;
+        doctor.img = body.img;
+        doctor.hospital = body.hospital,
+            doctor.user = body.user
 
-        user.save((err, userSave) => {
+        doctor.save((err, doctorSaved) => {
+
             if (err) {
                 return res.status(400).json({
                     ok: false,
-                    mensaje: 'Error to update user',
+                    mensaje: 'Error to update Doctor',
                     errors: err
                 });
             }
-            userSave.password = '****';
+
             return res.status(200).json({
                 ok: true,
-                body: userSave
+                body: doctorSaved
             });
 
         });
-
-
 
     });
 
 });
 
 /*
-* Delete user by id
+* Delete doctor by id
 */
 
 app.delete('/:id', middlewareAuthentication.tokenVerification, (req, resp) => {
     var id = req.params.id;
-    User.findByIdAndRemove(id, (err, userDeleted) => {
+    Doctor.findByIdAndRemove(id, (err, dotorDeleted) => {
         if (err) {
             return resp.status(500).json({
                 ok: false,
-                mensaje: 'Error deleting user',
+                mensaje: 'Error deleting doctor',
                 errors: err
             });
         }
 
-        if (!userDeleted) {
+        if (!dotorDeleted) {
             return resp.status(400).json({
                 ok: false,
-                mensaje: 'Error - User does not exist with id provided.',
+                mensaje: 'Error - Doctor does not exist with id provided.',
                 errors: err
             });
         }
 
-        userDeleted.password = '****';
         return resp.status(200).json({
             ok: true,
-            body: userDeleted
+            body: dotorDeleted
         });
     });
 });
+
 
 // Export module
 module.exports = app;   

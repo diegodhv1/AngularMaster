@@ -16,10 +16,16 @@ app.use(bodyParser.json());
 appRoutes = require('./routes/app');
 appUser = require('./routes/users');
 appLogin = require('./routes/login');
+appHospitals = require('./routes/hospitals');
+appDoctor = require('./routes/doctors');
+appSearch = require('./routes/search');
 
 // Routes
 app.use( '/user' , appUser );
 app.use( '/login' , appLogin );
+app.use( '/hospital' , appHospitals );
+app.use( '/doctor' , appDoctor );
+app.use( '/search' , appSearch );
 app.use( '/' , appRoutes );
 
 // open port
