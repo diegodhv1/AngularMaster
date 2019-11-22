@@ -1,4 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { IAppState } from 'src/app/app.recuders';
+import { MultiplyAction, DivideAction, RestartAction, substract } from '../actions';
 
 @Component({
   selector: 'app-incrementador',
@@ -17,10 +20,15 @@ export class IncrementadorComponent implements OnInit {
    * El parametro es usado para identificar el elemento desde HTML #identificador
    */
   @ViewChild('txtProgress') txtProgress: ElementRef;
+  counter: number;
 
-  constructor() { }
+  constructor(private store: Store<IAppState>) { }
 
   ngOnInit() {
+
+    this.store.select('counter').subscribe(counter => {
+      this.counter = counter;
+    });
   }
 
   changeValueFromButton(value: number) {
@@ -42,7 +50,7 @@ export class IncrementadorComponent implements OnInit {
 
   changeValueFromInput(newProgressValue: number) {
 
-    if (newProgressValue >= 100 ) {
+    if (newProgressValue >= 100) {
       this.progreso = 100;
     } else if (newProgressValue <= 0) {
       this.progreso = 0;
@@ -51,6 +59,25 @@ export class IncrementadorComponent implements OnInit {
     }
     this.txtProgress.nativeElement.value = this.progreso;
     this.actualizarBarraProgreso.emit(this.progreso);
+  }
+
+  multipy() {
+    const multiply = new MultiplyAction(5);
+    this.store.dispatch(multiply);
+  }
+
+  divide() {
+    const divide = new DivideAction(5);
+    this.store.dispatch(divide);
+  }
+
+  restart() {
+    const action = new RestartAction();
+    this.store.dispatch(action);
+  }
+
+  substract() {
+    this.store.dispatch(substract({ substract: 2 }));
   }
 
 }
