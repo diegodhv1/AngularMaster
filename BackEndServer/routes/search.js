@@ -20,7 +20,44 @@ var Doctor = require('../models/doctor')
 /*
 * Search all service
 */
-app.get('/all/:search', (request, response, next) => {
+app.get('/collection/:collection/:search', (request, response, next) => {
+
+  const search = request.params.search;
+  const collection = request.params.collection.toLocaleLowerCase();
+  var promise;
+  var regEx = new RegExp(search, 'i');
+
+  switch (collection) {
+    case 'hospital':
+      promise = hospitalSearch(regEx);
+      break;
+    case 'doctor':
+      promise = doctorSearch(regEx);
+      break;
+    case 'user':
+      promise = userSearch(regEx);
+      break;
+    default:
+      return response.status(400).json({
+        ok: false,
+        message: 'Invalid table parameter'
+      });
+  }
+
+
+  promise.then(respons => {
+    response.status(200).json({
+      ok: true,
+      collection: respons
+    });
+  });
+
+});
+
+/*
+* Search service by colecction
+*/
+app.get('/:search', (request, response, next) => {
 
   var search = request.params.search;
   var regEx = new RegExp(search, 'i');
@@ -77,15 +114,15 @@ function userSearch(reg) {
   return new Promise((resolve, reject) => {
 
     User.find({}, 'name email role')
-          .or( [{'name': reg}, {'email': reg }] )
-          .exec( (error, users ) => {
+      .or([{ 'name': reg }, { 'email': reg }])
+      .exec((error, users) => {
 
-            if( error ){
-              reject('error load users');
-            } else {
-              resolve( users );
-            }
-          });
+        if (error) {
+          reject('error load users');
+        } else {
+          resolve(users);
+        }
+      });
   });
 }
 
